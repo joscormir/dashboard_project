@@ -2,6 +2,7 @@ import { githubApiResponses } from '../github_api_responses'
 import Lock from './lock.svg?react'
 import UnLock from './unlock.svg?react'
 import styles from './Dashboard.module.scss'
+import { DashboardConfig } from '../dashboard_project_config'
 
 /*async function onCLickgetRepo() {
   const octokit = new Octokit({
@@ -42,7 +43,8 @@ export function Dashboard() {
                 target="blank"
                 title={`${repo.repositoryData.organization.login}/${repo.repositoryData.name}`}
               >
-                {repo.repositoryData.organization.login}/{repo.repositoryData.name}
+                {repo.repositoryData.organization.login}/
+                {repo.repositoryData.name}
               </a>
               {repo.repositoryData.private ? <Lock /> : <UnLock />}
             </header>
