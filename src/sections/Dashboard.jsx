@@ -1,6 +1,7 @@
-import { Octokit } from 'octokit'
-import { DashboardConfig } from '../dashboard_project_config'
 import { githubApiResponses } from '../github_api_responses'
+import Lock from './lock.svg?react'
+import UnLock from './unlock.svg?react'
+import styles from './Dashboard.module.scss'
 
 /*async function onCLickgetRepo() {
   const octokit = new Octokit({
@@ -26,18 +27,27 @@ import { githubApiResponses } from '../github_api_responses'
 }*/
 
 export function Dashboard() {
-
   return (
     <>
-      <header>
-        <h1>Hello, World! </h1>
+      <header className={styles.header}>
+        <h1>Github Repo Dashboard</h1>
       </header>
-      <section>
-        <ul>
-          {githubApiResponses.map((repo) => (
-            <li key={repo.repositoryData.id}>{repo.repositoryData.url}</li>
-          ))}
-        </ul>
+      <section className={styles.container}>
+        {githubApiResponses.map((repo) => (
+          <article className={styles.widget} key={repo.repositoryData.id}>
+            <header className={styles.widget__header}>
+              <a
+                className={styles.widget__title}
+                href={repo.repositoryData.html_url}
+                target="blank"
+                title={`${repo.repositoryData.organization.login}/${repo.repositoryData.name}`}
+              >
+                {repo.repositoryData.organization.login}/{repo.repositoryData.name}
+              </a>
+              {repo.repositoryData.private ? <Lock /> : <UnLock />}
+            </header>
+          </article>
+        ))}
       </section>
     </>
   )

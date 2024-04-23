@@ -1,8 +1,7 @@
-import './App.css'
 import { Dashboard } from './sections/Dashboard'
 
 function App() {
-  return <Dashboard/>
+  return <Dashboard />
 }
 
 export default App

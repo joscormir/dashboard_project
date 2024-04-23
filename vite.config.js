@@ -1,11 +1,11 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react-swc'
-import configDotenv from './configDotenv';
+import configDotenv from './configDotenv'
+import svgr from 'vite-plugin-svgr'
 
 export default defineConfig({
-  plugins: [react()],
+  plugins: [react(), svgr()],
   define: {
-    'process.env': JSON.stringify(configDotenv)
-  }
-});
-
+    'process.env': JSON.stringify(configDotenv),
+  },
+})
