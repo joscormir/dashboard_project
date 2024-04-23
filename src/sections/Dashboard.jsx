@@ -1,5 +1,6 @@
 import { Octokit } from 'octokit'
 import { DashboardConfig } from '../dashboard_project_config'
+import { githubApiResponses } from '../github_api_responses'
 
 async function onCLickgetRepo() {
   const octokit = new Octokit({
@@ -24,14 +25,21 @@ async function onCLickgetRepo() {
   console.log(`The issue title is: ${response.data.title}`)
 }
 
-
 export function Dashboard() {
+
   return (
     <>
-      <div>
+      <header>
         <h1>Hello, World! </h1>
+      </header>
+      <section>
+        <ul>
+          {githubApiResponses.map((repo) => (
+            <li key={repo.repositoryData.id}>{repo.repositoryData.url}</li>
+          ))}
+        </ul>
         <button onClick={onCLickgetRepo}>Get Repo</button>
-      </div>
+      </section>
     </>
   )
 }
