@@ -2,7 +2,7 @@ import { Octokit } from 'octokit'
 import { DashboardConfig } from '../dashboard_project_config'
 import { githubApiResponses } from '../github_api_responses'
 
-async function onCLickgetRepo() {
+/*async function onCLickgetRepo() {
   const octokit = new Octokit({
     auth: DashboardConfig['github_access_token'],
   })
@@ -23,7 +23,7 @@ async function onCLickgetRepo() {
     `The x-ratelimit-remaining response header is: ${response.headers['x-ratelimit-remaining']}`,
   )
   console.log(`The issue title is: ${response.data.title}`)
-}
+}*/
 
 export function Dashboard() {
 
@@ -38,7 +38,6 @@ export function Dashboard() {
             <li key={repo.repositoryData.id}>{repo.repositoryData.url}</li>
           ))}
         </ul>
-        <button onClick={onCLickgetRepo}>Get Repo</button>
       </section>
     </>
   )
