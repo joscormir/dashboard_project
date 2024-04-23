@@ -4,12 +4,12 @@ import Lock from '../assets/icons/lock.svg?react'
 import UnLock from '../assets/icons/unlock.svg?react'
 import Check from '../assets/icons/check.svg?react'
 import Error from '../assets/icons/error.svg?react'
-import PullRequest from '../assets/icons/git-pull-request.svg?react'
-import Star from '../assets/icons/star.svg?react'
-import Watcher from '../assets/icons/watchers.svg?react'
-import Fork from '../assets/icons/repo-forked.svg?react'
-import Issue from '../assets/icons/issue-opened.svg?react'
-
+import PullsRequested from '../assets/icons/git-pull-request.svg?react'
+import Starred from '../assets/icons/star.svg?react'
+import Watchers from '../assets/icons/watchers.svg?react'
+import Forks from '../assets/icons/repo-forked.svg?react'
+import IssuesOpened from '../assets/icons/issue-opened.svg?react'
+import { isoDateFormat } from '../services/isoDateFormat'
 /*async function onCLickgetRepo() {
   const octokit = new Octokit({
     auth: DashboardConfig['github_access_token'],
@@ -27,23 +27,6 @@ import Issue from '../assets/icons/issue-opened.svg?react'
   )
   console.log(response.data)
 }*/
-
-function isoDateFormat(date) {
-  const dateFormatted = new Date(date)
-  const today = new Date()
-
-  if (today.getFullYear() - dateFormatted.getFullYear() > 0) {
-    console.log(today.getFullYear() - dateFormatted.getFullYear())
-    return `${today.getFullYear() - dateFormatted.getFullYear()} years ago`
-  } else if (today.getMonth() - dateFormatted.getMonth() > 0) {
-    return `${today.getMonth() - dateFormatted.getMonth()} months ago`
-  } else if (today.getDay() - dateFormatted.getDay() > 0) {
-    return `${today.getDay() - dateFormatted.getDay()} days ago`
-  } else {
-    return 'today'
-  }
-}
-
 export function Dashboard() {
   return (
     <>
@@ -88,23 +71,23 @@ export function Dashboard() {
 
             <footer className={styles.widget__footer}>
               <div className={styles.widget__stat}>
-                <Star />
+                <Starred />
                 {repo.repositoryData.stargazers_count}
               </div>
               <div className={styles.widget__stat}>
-                <Watcher />
+                <Watchers />
                 {repo.repositoryData.watchers_count}
               </div>
               <div className={styles.widget__stat}>
-                <PullRequest />
+                <PullsRequested />
                 {repo.pullRequest.length}
               </div>
               <div className={styles.widget__stat}>
-                <Fork />
+                <Forks />
                 {repo.repositoryData.forks_count}
               </div>
               <div className={styles.widget__stat}>
-                <Issue />
+                <IssuesOpened />
                 {repo.repositoryData.open_issues_count}
               </div>
             </footer>
