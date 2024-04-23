@@ -1,8 +1,8 @@
 import { githubApiResponses } from '../github_api_responses'
-import Lock from './lock.svg?react'
-import UnLock from './unlock.svg?react'
+import Lock from '../assets/icons/lock.svg?react'
+import UnLock from '../assets/icons/unlock.svg?react'
 import styles from './Dashboard.module.scss'
-import { DashboardConfig } from '../dashboard_project_config'
+
 
 /*async function onCLickgetRepo() {
   const octokit = new Octokit({
@@ -19,12 +19,7 @@ import { DashboardConfig } from '../dashboard_project_config'
       },
     },
   )
-  console.log(`The status of the response is: ${response.status}`)
-  console.log(`The request URL was: ${response.url}`)
-  console.log(
-    `The x-ratelimit-remaining response header is: ${response.headers['x-ratelimit-remaining']}`,
-  )
-  console.log(`The issue title is: ${response.data.title}`)
+  console.log(response.data)
 }*/
 
 export function Dashboard() {
@@ -48,6 +43,8 @@ export function Dashboard() {
               </a>
               {repo.repositoryData.private ? <Lock /> : <UnLock />}
             </header>
+            <section></section>
+            <footer></footer>
           </article>
         ))}
       </section>
