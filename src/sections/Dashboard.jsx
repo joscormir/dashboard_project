@@ -3,7 +3,6 @@ import Lock from '../assets/icons/lock.svg?react'
 import UnLock from '../assets/icons/unlock.svg?react'
 import styles from './Dashboard.module.scss'
 
-
 /*async function onCLickgetRepo() {
   const octokit = new Octokit({
     auth: DashboardConfig['github_access_token'],
@@ -21,6 +20,20 @@ import styles from './Dashboard.module.scss'
   )
   console.log(response.data)
 }*/
+
+function isoDateFormat(date) {
+  const dateFormatted = new Date(date)
+  const today = new Date()
+  if (today.getFullYear() - dateFormatted.getFullYear() > 0) {
+    return `${today.getFullYear() - dateFormatted.getFullYear()} years ago`
+  } else if (today.getMonth() - dateFormatted.getMonth() > 0) {
+    return `${today.getMonth() - dateFormatted.getMonth()} months ago`
+  } else if (today.getDay() - dateFormatted.getDay() > 0) {
+    return `${today.getDay() - dateFormatted.getDay()} days ago`
+  } else {
+    return 'today'
+  }
+}
 
 export function Dashboard() {
   return (
@@ -43,7 +56,17 @@ export function Dashboard() {
               </a>
               {repo.repositoryData.private ? <Lock /> : <UnLock />}
             </header>
-            <section></section>
+
+            <section>
+              <p>
+                Last update {isoDateFormat(repo.repositoryData.updated_at)}{' '}
+              </p>
+              {repo.CiStatus.workflow_runs.length > 0 && (
+                <div>
+                  {/*repo.CiStatus.workflow_runs[0].status === 'completed' ? <Check/> : <Error />*/}
+                </div>
+              )}
+            </section>
             <footer></footer>
           </article>
         ))}
