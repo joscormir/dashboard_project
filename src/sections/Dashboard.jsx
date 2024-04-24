@@ -1,4 +1,3 @@
-import { githubApiResponses } from '../github_api_responses'
 import styles from './Dashboard.module.scss'
 import Lock from '../assets/icons/lock.svg?react'
 import UnLock from '../assets/icons/unlock.svg?react'
@@ -10,6 +9,7 @@ import Watchers from '../assets/icons/watchers.svg?react'
 import Forks from '../assets/icons/repo-forked.svg?react'
 import IssuesOpened from '../assets/icons/issue-opened.svg?react'
 import { isoDateFormat } from '../services/isoDateFormat'
+import { inMemoryGitHubRepositoryRepository } from '../infrastructure/inMemoryGitHubRepositoryRepository'
 /*async function onCLickgetRepo() {
   const octokit = new Octokit({
     auth: DashboardConfig['github_access_token'],
@@ -27,14 +27,19 @@ import { isoDateFormat } from '../services/isoDateFormat'
   )
   console.log(response.data)
 }*/
+const repository = new inMemoryGitHubRepositoryRepository()
+const repositories = repository.search()
 export function Dashboard() {
+  
+ 
+
   return (
     <>
-      <header className={styles.header}>
+      <header className={styles.header__container}>
         <h1>Github Repo Dashboard</h1>
       </header>
       <section className={styles.container}>
-        {githubApiResponses.map((repo) => (
+        {repositories.map((repo) => (
           <article className={styles.widget} key={repo.repositoryData.id}>
             <header className={styles.widget__header}>
               <a
