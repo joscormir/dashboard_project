@@ -13,16 +13,18 @@ import { GitHubAPIGitHubRepositoryRepository } from '../infrastructure/GitHubAPI
 import { DashboardConfig } from '../dashboard_project_config'
 import { useState, useEffect } from 'react'
 
-const repository = new GitHubAPIGitHubRepositoryRepository(DashboardConfig.github_access_token)
-
 export function Dashboard() {
-
   const [GitHubApiResponse, setGitHubApiResponse] = useState([])
   
-  useEffect(()=>{
-    repository.search(DashboardConfig.widgets.map((widget)=>widget.repository_url))
-    .then((responses)=>{setGitHubApiResponse(responses)})
-  },[])
+  useEffect(() => {
+    /*  repository is defined inside the effect so the first time it is rendered
+    this variable might be updated 
+    */
+   const repository = new GitHubAPIGitHubRepositoryRepository(DashboardConfig.github_access_token)
+    repository
+      .search(DashboardConfig.widgets.map((widget) => widget.repository_url))
+      .then((responses) => {setGitHubApiResponse(responses)})
+  }, [])
 
   return (
     <>
@@ -52,12 +54,11 @@ export function Dashboard() {
                 </p>
                 {repo.ciStatus.workflow_runs.length > 0 && (
                   <div>
-                    {repo.ciStatus.workflow_runs[0].status === "completed" ? (
-											<Check />
-										) : (
-											<Error />
-										)}
-                    
+                    {repo.ciStatus.workflow_runs[0].status === 'completed' ? (
+                      <Check />
+                    ) : (
+                      <Error />
+                    )}
                   </div>
                 )}
               </div>
