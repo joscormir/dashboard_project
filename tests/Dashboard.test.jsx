@@ -1,7 +1,7 @@
 import { githubApiResponses } from '../src/github_api_responses'
 import { GitHubAPIGitHubRepositoryRepository } from '../src/infrastructure/GitHubAPIGitHubRepositoryRepository'
 import { Dashboard } from '../src/sections/Dashboard'
-import { render } from '@testing-library/react'
+import { screen, render } from '@testing-library/react'
 jest.mock('../src/infrastructure/GitHubAPIGitHubRepositoryRepository')
 /* TODO: This second mock to change the value of github_access_token from import.meta.env to ''
 needs to be changed to something that is inherit from the DashBoardConfig not hard copied
@@ -47,7 +47,48 @@ describe('Dasshboard section', () => {
     the browser and not the app implementation we will override 
     it
     */
+    // ARRANGE
+    render(<Dashboard />)
+    // ACT
+    
+    const firstWidgetTitle = `${githubApiResponses[0].repositoryData.organization.login}/${githubApiResponses[0].repositoryData.name}`
+    const firstWidgetHeader = await screen.findByRole('heading', {
+      name: new RegExp(firstWidgetTitle, 'i'),
+    })
+
+    // ASSERT
+    expect(firstWidgetHeader).toBeInTheDocument()
+  
+  })
+  it('show not results message when there are no widgets', async () => {
+    mockRepository.mockImplementationOnce(() => {
+      return {
+        search: () => Promise.resolve([]),
+      }
+    })
 
     render(<Dashboard />)
+
+    const noResults = await screen.findByText(
+      new RegExp('No configured widgets', 'i'),
+    )
+
+    expect(noResults).toBeInTheDocument()
+  })
+  it('show last modified date in human readable format', async () => {
+    const mockedResponse = [...githubApiResponses]
+    mockedResponse[0].repositoryData.updated_at = new Date().toISOString()
+    mockRepository.mockImplementationOnce(() => {
+      return {
+        search: () => Promise.resolve(githubApiResponses),
+      }
+    })
+
+    render(<Dashboard />)
+    
+    const modificationDate = await screen.findByText(new RegExp('Last update today', 'i'))
+
+    expect(modificationDate).toBeInTheDocument()
+    
   })
 })

@@ -21,16 +21,22 @@ export function Dashboard() {
     this variable might be updated 
     */
    const repository = new GitHubAPIGitHubRepositoryRepository(DashboardConfig.github_access_token)
+   
     repository
       .search(DashboardConfig.widgets.map((widget) => widget.repository_url))
       .then((responses) => {setGitHubApiResponse(responses)})
   }, [])
-
+  
   return (
     <>
       <header className={styles.header__container}>
         <h1>Github Repo Dashboard</h1>
       </header>
+      {GitHubApiResponse.length === 0 ? (
+      <div className={styles.empty}>
+        <span>No configured widgets</span>
+      </div>
+      ) : (
       <section className={styles.container}>
         {GitHubApiResponse.map((repo) => (
           <article className={styles.widget} key={repo.repositoryData.id}>
@@ -92,6 +98,7 @@ export function Dashboard() {
           </article>
         ))}
       </section>
+      )}
     </>
   )
 }
