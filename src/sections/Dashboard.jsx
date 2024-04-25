@@ -9,29 +9,20 @@ import Watchers from '../assets/icons/watchers.svg?react'
 import Forks from '../assets/icons/repo-forked.svg?react'
 import IssuesOpened from '../assets/icons/issue-opened.svg?react'
 import { isoDateFormat } from '../services/isoDateFormat'
-import { inMemoryGitHubRepositoryRepository } from '../infrastructure/inMemoryGitHubRepositoryRepository'
-/*async function onCLickgetRepo() {
-  const octokit = new Octokit({
-    auth: DashboardConfig['github_access_token'],
-  })
-  const response = await octokit.request(
-    'GET /repos/{owner}/{repo}/issues/{issue_number}',
-    {
-      owner: 'github',
-      repo: 'docs',
-      issue_number: 11901,
-      headers: {
-        'x-github-api-version': '2022-11-28',
-      },
-    },
-  )
-  console.log(response.data)
-}*/
-const repository = new inMemoryGitHubRepositoryRepository()
-const repositories = repository.search()
+import { GitHubAPIGitHubRepositoryRepository } from '../infrastructure/GitHubAPIGitHubRepositoryRepository'
+import { DashboardConfig } from '../dashboard_project_config'
+import { useState, useEffect } from 'react'
+
+const repository = new GitHubAPIGitHubRepositoryRepository(DashboardConfig.github_access_token)
+
 export function Dashboard() {
+
+  const [GitHubApiResponse, setGitHubApiResponse] = useState([])
   
- 
+  useEffect(()=>{
+    repository.search(DashboardConfig.widgets.map((widget)=>widget.repository_url))
+    .then((responses)=>{setGitHubApiResponse(responses)})
+  },[])
 
   return (
     <>
@@ -39,7 +30,7 @@ export function Dashboard() {
         <h1>Github Repo Dashboard</h1>
       </header>
       <section className={styles.container}>
-        {repositories.map((repo) => (
+        {GitHubApiResponse.map((repo) => (
           <article className={styles.widget} key={repo.repositoryData.id}>
             <header className={styles.widget__header}>
               <a
@@ -59,13 +50,14 @@ export function Dashboard() {
                 <p>
                   Last update {isoDateFormat(repo.repositoryData.updated_at)}{' '}
                 </p>
-                {repo.CiStatus.workflow_runs.length > 0 && (
+                {repo.ciStatus.workflow_runs.length > 0 && (
                   <div>
-                    {repo.CiStatus.workflow_runs[0].status === 'completed' ? (
-                      <Check />
-                    ) : (
-                      <Error />
-                    )}
+                    {repo.ciStatus.workflow_runs[0].status === "completed" ? (
+											<Check />
+										) : (
+											<Error />
+										)}
+                    
                   </div>
                 )}
               </div>
@@ -85,7 +77,7 @@ export function Dashboard() {
               </div>
               <div className={styles.widget__stat}>
                 <PullsRequested />
-                {repo.pullRequest.length}
+                {repo.pullRequests.length}
               </div>
               <div className={styles.widget__stat}>
                 <Forks />
