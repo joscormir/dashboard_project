@@ -1,4 +1,4 @@
-import styles from './Dashboard.module.scss'
+import styles from './ErrorWidget.module.scss'
 
 export function ErrorWidget() {
   return (

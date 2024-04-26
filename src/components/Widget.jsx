@@ -1,4 +1,4 @@
-import styles from './Dashboard.module.scss'
+import styles from './Widget.module.scss'
 import Lock from '../assets/icons/lock.svg?react'
 import UnLock from '../assets/icons/unlock.svg?react'
 import Check from '../assets/icons/check.svg?react'
