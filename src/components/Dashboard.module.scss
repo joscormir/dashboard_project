@@ -10,6 +10,12 @@
     }
   }
   
+  .empty {
+    display:flex;
+    align-items: center;
+    
+  }
+  
   .app__brand {
     color: #3cd5ff;
     font-style: italic;
