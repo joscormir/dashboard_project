@@ -12,7 +12,8 @@ import { isoDateFormat } from '../services/isoDateFormat'
 
 export function Widget({ repositoryData, pullRequests, ciStatus }) {
   return (
-    <>
+   
+    <article className={styles.widget} key={repositoryData.id}>
       <header className={styles.widget__header}>
         <a
           className={styles.widget__title}
@@ -65,6 +66,7 @@ export function Widget({ repositoryData, pullRequests, ciStatus }) {
           {repositoryData.open_issues_count}
         </div>
       </footer>
-    </>
+    </article>
+  
   )
 }

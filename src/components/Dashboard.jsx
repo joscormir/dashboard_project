@@ -1,5 +1,4 @@
 import styles from './Dashboard.module.scss'
-import stylesWidget from './Widget.module.scss'
 import { GitHubAPIGitHubRepositoryRepository } from '../infrastructure/GitHubAPIGitHubRepositoryRepository'
 import { DashboardConfig } from '../dashboard_project_config'
 import { useState, useEffect } from 'react'
@@ -34,13 +33,13 @@ export function Dashboard() {
       ) : (
         <section className={styles.container}>
           {GitHubApiResponse.map((repo) => (
-            <article className={stylesWidget.widget} key={repo.repositoryData.id}>
               <Widget
+                key={repo.repositoryData.id}
                 repositoryData={repo.repositoryData}
                 pullRequests={repo.pullRequests}
                 ciStatus={repo.ciStatus}
               />
-            </article>
+            
           ))}
         </section>
       )}
