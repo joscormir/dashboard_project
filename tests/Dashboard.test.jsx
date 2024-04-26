@@ -1,7 +1,9 @@
 import { githubApiResponses } from '../src/github_api_responses'
 import { GitHubAPIGitHubRepositoryRepository } from '../src/infrastructure/GitHubAPIGitHubRepositoryRepository'
-import { Dashboard } from '../src/sections/Dashboard'
+import { Dashboard } from '../src/components/Dashboard'
 import { screen, render } from '@testing-library/react'
+
+
 jest.mock('../src/infrastructure/GitHubAPIGitHubRepositoryRepository')
 /* TODO: This second mock to change the value of github_access_token from import.meta.env to ''
 needs to be changed to something that is inherit from the DashBoardConfig not hard copied
@@ -50,7 +52,7 @@ describe('Dasshboard section', () => {
     // ARRANGE
     render(<Dashboard />)
     // ACT
-    
+
     const firstWidgetTitle = `${githubApiResponses[0].repositoryData.organization.login}/${githubApiResponses[0].repositoryData.name}`
     const firstWidgetHeader = await screen.findByRole('heading', {
       name: new RegExp(firstWidgetTitle, 'i'),
@@ -58,7 +60,6 @@ describe('Dasshboard section', () => {
 
     // ASSERT
     expect(firstWidgetHeader).toBeInTheDocument()
-  
   })
   it('show not results message when there are no widgets', async () => {
     mockRepository.mockImplementationOnce(() => {
@@ -66,13 +67,13 @@ describe('Dasshboard section', () => {
         search: () => Promise.resolve([]),
       }
     })
-
+    // ARRANGE
     render(<Dashboard />)
-
+    // ACT
     const noResults = await screen.findByText(
       new RegExp('No configured widgets', 'i'),
     )
-
+    // ASSERT
     expect(noResults).toBeInTheDocument()
   })
   it('show last modified date in human readable format', async () => {
@@ -83,12 +84,13 @@ describe('Dasshboard section', () => {
         search: () => Promise.resolve(githubApiResponses),
       }
     })
-
+    // ARRANGE
     render(<Dashboard />)
-    
-    const modificationDate = await screen.findByText(new RegExp('Last update today', 'i'))
-
+    // ACT
+    const modificationDate = await screen.findByText(
+      new RegExp('Last update today', 'i'),
+    )
+    // ASSERT
     expect(modificationDate).toBeInTheDocument()
-    
   })
 })

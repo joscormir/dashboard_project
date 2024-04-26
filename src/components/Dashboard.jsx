@@ -1,38 +1,24 @@
-import styles from './Dashboard.module.scss'
-import { GitHubAPIGitHubRepositoryRepository } from '../infrastructure/GitHubAPIGitHubRepositoryRepository'
-import { DashboardConfig } from '../dashboard_project_config'
-import { useState, useEffect } from 'react'
+import styles from './Dashboard.module.scss'  
 import { Widget } from './Widget'
 import { ErrorWidget } from './ErrorWidget'
+import { useGitHubApiRepositories } from '../hooks/useGitHubApiRepositories'
+import { DashboardConfig } from '../dashboard_project_config'
 
-export function Dashboard() {
-  const [GitHubApiResponse, setGitHubApiResponse] = useState([])
+const repositoryUrls = DashboardConfig.widgets.map((widget)=>widget.repository_url)
 
-  useEffect(() => {
-    /*  repository is defined inside the effect so the first time it is rendered
-    this variable might be updated 
-    */
-    const repository = new GitHubAPIGitHubRepositoryRepository(
-      DashboardConfig.github_access_token,
-    )
-
-    repository
-      .search(DashboardConfig.widgets.map((widget) => widget.repository_url))
-      .then((responses) => {
-        setGitHubApiResponse(responses)
-      })
-  }, [])
-
+export function Dashboard({repository}) {
+    const {repositoryData} = useGitHubApiRepositories({repository, repositoryUrls })
+    
   return (
     <>
       <header className={styles.header__container}>
         <h1>Github Repo Dashboard</h1>
       </header>
-      {GitHubApiResponse.length === 0 ? (
+      {repositoryData.length === 0 ? (
         <ErrorWidget />
       ) : (
         <section className={styles.container}>
-          {GitHubApiResponse.map((repo) => (
+          {repositoryData.map((repo) => (
               <Widget
                 key={repo.repositoryData.id}
                 repositoryData={repo.repositoryData}
