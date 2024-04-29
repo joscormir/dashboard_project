@@ -1,0 +1,15 @@
+.header {
+    &__container {
+      display: flex;
+      background-color: #3cd5ff;
+      gap: 2rem;
+      align-items: center;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 1rem;
+    }
+  } 
+  .app__brand {
+    color: #3cd5ff;
+    font-style: italic;
+  }

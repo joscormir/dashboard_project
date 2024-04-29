@@ -11,9 +11,6 @@ export function Dashboard({repository}) {
     
   return (
     <>
-      <header className={styles.header__container}>
-        <h1>Github Repo Dashboard</h1>
-      </header>
       {repositoryData.length === 0 ? (
         <ErrorWidget />
       ) : (
