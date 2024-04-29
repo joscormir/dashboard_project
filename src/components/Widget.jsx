@@ -9,20 +9,19 @@ import Watchers from '../assets/icons/watchers.svg?react'
 import Forks from '../assets/icons/repo-forked.svg?react'
 import IssuesOpened from '../assets/icons/issue-opened.svg?react'
 import { isoDateFormat } from '../services/isoDateFormat'
+import { Link } from 'react-router-dom'
 
 export function Widget({ repositoryData, pullRequests, ciStatus }) {
   return (
-   
     <article className={styles.widget} key={repositoryData.id}>
       <header className={styles.widget__header}>
-        <a
-          className={styles.widget__title}
-          href={`/repository/${repositoryData.organization.login}/${repositoryData.name}`}
-          target="blank"
-          title={`${repositoryData.organization.login}/${repositoryData.name}`}
-        >
-          {repositoryData.organization.login}/{repositoryData.name}
-        </a>
+        <h2 className={styles.widget__title}>
+          <Link
+            to={`/repository/${repositoryData.organization.login}/${repositoryData.name}`}
+          >
+            {repositoryData.organization.login}/{repositoryData.name}
+          </Link>
+        </h2>
         {repositoryData.private ? <Lock /> : <UnLock />}
       </header>
 
@@ -67,6 +66,5 @@ export function Widget({ repositoryData, pullRequests, ciStatus }) {
         </div>
       </footer>
     </article>
-  
   )
 }
