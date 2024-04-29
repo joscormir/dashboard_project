@@ -13,6 +13,9 @@ export class GitHubAPIGitHubRepositoryRepository {
       .map((id) => this.#searchBy(id))
     return Promise.all(responsePromises)
   }
+  async byId(repositoryId){
+    return this.#searchBy(repositoryId)
+  }
 
   async #searchBy(repositoryId) {
     const RepositoryRequests = this.#endpoints
