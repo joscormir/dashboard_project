@@ -17,7 +17,7 @@ export function Widget({ repositoryData, pullRequests, ciStatus }) {
       <header className={styles.widget__header}>
         <a
           className={styles.widget__title}
-          href={repositoryData.html_url}
+          href={`/repository/${repositoryData.organization.login}/${repositoryData.name}`}
           target="blank"
           title={`${repositoryData.organization.login}/${repositoryData.name}`}
         >

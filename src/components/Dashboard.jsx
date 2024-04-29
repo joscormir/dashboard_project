@@ -7,7 +7,7 @@ import { DashboardConfig } from '../dashboard_project_config'
 const repositoryUrls = DashboardConfig.widgets.map((widget)=>widget.repository_url)
 
 export function Dashboard({repository}) {
-    const {repositoryData} = useGitHubApiRepositories({repository, repositoryUrls })
+  const {repositoryData} = useGitHubApiRepositories({repository, repositoryUrls })
     
   return (
     <>
