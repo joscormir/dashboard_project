@@ -1,8 +1,7 @@
-import './App.css'
-import { Dashboard } from './sections/Dashboard'
+import { Router } from './Router'
 
 function App() {
-  return <Dashboard/>
+  return <Router />
 }
 
 export default App
