@@ -28,7 +28,7 @@ export function Widget({ repositoryData, pullRequests, ciStatus }) {
       <div className={styles.widget__body}>
         <div className={styles.widget__status}>
           <p>Last update {isoDateFormat(repositoryData.updated_at)} </p>
-          {ciStatus.workflow_runs.length > 0 && (
+          {ciStatus.workflow_runs.length > 0 ? (
             <div>
               {ciStatus.workflow_runs[0].status === 'completed' ? (
                 <Check />
@@ -36,6 +36,8 @@ export function Widget({ repositoryData, pullRequests, ciStatus }) {
                 <Error />
               )}
             </div>
+          ): (
+            <Error />
           )}
         </div>
         <p className={styles.widget__description}>
