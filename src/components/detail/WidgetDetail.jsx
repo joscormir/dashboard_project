@@ -4,6 +4,7 @@ import { useMemo } from 'react'
 import styles from './WidgetDetail.module.scss'
 import Lock from '../../assets/icons/lock.svg'
 import UnLock from '../../assets/icons/unlock.svg'
+import { WidgetDetailSkeleton } from './WidgetDetailSkeleton'
 
 export function WidgetDetail({ repository }) {
   const { organization, name } = useParams()
@@ -13,7 +14,7 @@ export function WidgetDetail({ repository }) {
   )
   const { repositoryData } = useGitHubRepository(repository, repositoryId)
   if (!repositoryData) {
-    return <></>
+    return <WidgetDetailSkeleton />
   }
 
   return (
