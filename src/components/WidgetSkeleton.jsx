@@ -22,14 +22,16 @@ function WidgetSkeleton() {
         <Skeleton baseColor="#FFFFFF" highlightColor="#3CD5FF" width="70%" />
       </header>
       <div className={styles.widget__body}>
-        <p style={{ marginTop: '1rem', marginBottom: '2rem' }}>
+        <p 
+        style={{ marginTop: '1rem', marginBottom: '2rem' }}
+        >
           Last update <Skeleton inline={true} width="20%" />
         </p>
         <p
           className={styles.widget__description}
           style={{ paddingBottom: '0.65rem' }}
         >
-          <Skeleton height={45} />
+          <Skeleton height={28} />
         </p>
       </div>
       <footer className={styles.widget__footer}>
