@@ -64,7 +64,6 @@ export function WidgetDetail({ repository }) {
           </tr>
         </thead>
         <tbody>
-          {console.log(repositoryData)}
           {repositoryData.ciStatus.workflow_runs.map((run) => {
           return(
             <tr key={run.id}>
