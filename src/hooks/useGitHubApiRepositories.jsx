@@ -4,11 +4,14 @@ export function useGitHubApiRepositories({
   repositoryUrls,
 }) {
   const [repositoryData, setRepositoryData] = useState([])
+  const [isLoading, setIsLoading] = useState(true)
   useEffect(() => {
+    setIsLoading(true)
     repository.search(repositoryUrls).then((repositoryData) => {
       setRepositoryData(repositoryData)
+      setIsLoading(false)
     })
   }, [repository, repositoryUrls])
 
-  return { repositoryData }
+  return { repositoryData , isLoading}
 }
