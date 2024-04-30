@@ -2,8 +2,9 @@ export class GitHubAPIGitHubRepositoryRepository {
   #endpoints = [
     'https://api.github.com/repos/$organization/$name',
     'https://api.github.com/repos/$organization/$name/pulls',
-    'https://api.github.com/repos/$organization/$name/actions/runs?page=1&per_page=1',
+    'https://api.github.com/repos/$organization/$name/actions/runs',//?page=1&per_page=10
   ]
+
 
   constructor(personalAccessToken) {this.personalAccessToken = personalAccessToken}
   
@@ -12,6 +13,9 @@ export class GitHubAPIGitHubRepositoryRepository {
       .map((url) => this.#urlToId(url))
       .map((id) => this.#searchBy(id))
     return Promise.all(responsePromises)
+  }
+  async byId(repositoryId){
+    return this.#searchBy(repositoryId)
   }
 
   async #searchBy(repositoryId) {

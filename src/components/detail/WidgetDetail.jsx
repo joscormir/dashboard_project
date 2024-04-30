@@ -1,3 +1,86 @@
-export function WidgetDetail(){
-    return <span>Detail</span>
+import { useParams } from 'react-router-dom'
+import { useGitHubRepository } from '../../hooks/useGitHubRepository'
+import { useMemo } from 'react' 
+import styles from './WidgetDetail.module.scss'
+import Lock from '../../assets/icons/lock.svg'
+import UnLock from '../../assets/icons/unlock.svg'
+
+export function WidgetDetail({ repository }) {
+  const { organization, name } = useParams()
+  const repositoryId = useMemo(
+    () => ({ name, organization }),
+    [name, organization],
+  )
+  const { repositoryData } = useGitHubRepository(repository, repositoryId)
+  if (!repositoryData) {
+    return <></>
+  }
+
+  return (
+    <section className={styles['repository-detail']}>
+      <header className={styles.header}>
+        <a href={repositoryData.repositoryData.html_url} target="_blank" rel="noreferrer">
+          <h2 className={styles.header__title}>
+          {repositoryData.repositoryData.organization.login}/{repositoryData.repositoryData.name}
+          </h2>
+        </a>
+        {repositoryData.repositoryData.private ? <Lock /> : <UnLock />}
+      </header>
+
+      <p>{repositoryData.repositoryData.description}</p>
+
+      <h3>Repository stats</h3>
+      <table className={styles.detail__table}>
+        <thead>
+          <tr>
+            <th>Stars</th>
+            <th>Watchers</th>
+            <th>Forks</th>
+            <th>Issues</th>
+            <th>Pull Requests</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr>
+            <td>{repositoryData.repositoryData.stargazers_count}</td>
+            <td>{repositoryData.repositoryData.watchers_count}</td>
+            <td>{repositoryData.repositoryData.forks_count}</td>
+            <td>{repositoryData.repositoryData.open_issues_count}</td>
+            <td>{repositoryData.pullRequests.length}</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h3>Workflow runs status</h3>
+      <table className={styles.detail__table}>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Title</th>
+            <th>Date</th>
+            <th>Status</th>
+            <th>Conclusion</th>
+          </tr>
+        </thead>
+        <tbody>
+          {repositoryData.ciStatus.workflow_runs.map((run) => {
+          return(
+            <tr key={run.id}>
+              <td>{run.name}</td>
+              <td>
+                <a href={run.html_url} target="_blank" rel="noreferrer">
+                  {run.display_title}
+                </a>
+              </td>
+              <td>{new Date(run.created_at).toLocaleDateString("es-ES")}</td>
+              <td>{run.status}</td>
+              <td>{run.conclusion}</td>
+            </tr>
+          )}
+          )}
+        </tbody>
+      </table>
+    </section>
+  )
 }

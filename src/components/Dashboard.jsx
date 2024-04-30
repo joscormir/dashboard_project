@@ -1,31 +1,38 @@
-import styles from './Dashboard.module.scss'  
+import styles from './Dashboard.module.scss'
 import { Widget } from './Widget'
 import { ErrorWidget } from './ErrorWidget'
 import { useGitHubApiRepositories } from '../hooks/useGitHubApiRepositories'
 import { DashboardConfig } from '../dashboard_project_config'
+import { WidgetsSkeleton } from './WidgetSkeleton'
+const repositoryUrls = DashboardConfig.widgets.map(
+  (widget) => widget.repository_url,
+)
 
-const repositoryUrls = DashboardConfig.widgets.map((widget)=>widget.repository_url)
+export function Dashboard({ repository }) {
+  const { repositoryData, isLoading } = useGitHubApiRepositories({
+    repository,
+    repositoryUrls,
+  })
 
-export function Dashboard({repository}) {
-  const {repositoryData} = useGitHubApiRepositories({repository, repositoryUrls })
-    
   return (
     <>
-      <header className={styles.header__container}>
-        <h1>Github Repo Dashboard</h1>
-      </header>
-      {repositoryData.length === 0 ? (
+      {isLoading && (
+        
+        <section className={styles.container}>
+          <WidgetsSkeleton numberOfWidgets={repositoryUrls.length} />
+        </section>
+      )}
+      {!isLoading && repositoryData.length === 0 ? (
         <ErrorWidget />
       ) : (
         <section className={styles.container}>
           {repositoryData.map((repo) => (
-              <Widget
-                key={repo.repositoryData.id}
-                repositoryData={repo.repositoryData}
-                pullRequests={repo.pullRequests}
-                ciStatus={repo.ciStatus}
-              />
-            
+            <Widget
+              key={repo.repositoryData.id}
+              repositoryData={repo.repositoryData}
+              pullRequests={repo.pullRequests}
+              ciStatus={repo.ciStatus}
+            />
           ))}
         </section>
       )}

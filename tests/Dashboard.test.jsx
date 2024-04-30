@@ -1,7 +1,8 @@
 import { githubApiResponses } from '../src/github_api_responses'
-import { GitHubAPIGitHubRepositoryRepository } from '../src/infrastructure/GitHubAPIGitHubRepositoryRepository'
 import { Dashboard } from '../src/components/Dashboard'
 import { screen, render } from '@testing-library/react'
+import { GitHubAPIGitHubRepositoryRepository } from '../src/infrastructure/GitHubAPIGitHubRepositoryRepository'
+import { DashboardConfig } from '../src/dashboard_project_config'
 
 
 jest.mock('../src/infrastructure/GitHubAPIGitHubRepositoryRepository')
@@ -33,11 +34,9 @@ jest.mock('../src/dashboard_project_config', () => {
   }
 })
 
-const mockRepository = GitHubAPIGitHubRepositoryRepository
-
 describe('Dasshboard section', () => {
   it('show all widgets', async () => {
-    mockRepository.mockImplementationOnce(() => {
+    GitHubAPIGitHubRepositoryRepository.mockImplementationOnce(() => {
       return {
         search: () => Promise.resolve(githubApiResponses),
       }
@@ -50,7 +49,7 @@ describe('Dasshboard section', () => {
     it
     */
     // ARRANGE
-    render(<Dashboard />)
+    render(<Dashboard repository={new GitHubAPIGitHubRepositoryRepository(DashboardConfig['github_access_token'])}/>)
     // ACT
 
     const firstWidgetTitle = `${githubApiResponses[0].repositoryData.organization.login}/${githubApiResponses[0].repositoryData.name}`
@@ -62,13 +61,13 @@ describe('Dasshboard section', () => {
     expect(firstWidgetHeader).toBeInTheDocument()
   })
   it('show not results message when there are no widgets', async () => {
-    mockRepository.mockImplementationOnce(() => {
+    GitHubAPIGitHubRepositoryRepository.mockImplementationOnce(() => {
       return {
         search: () => Promise.resolve([]),
       }
     })
     // ARRANGE
-    render(<Dashboard />)
+    render(<Dashboard repository={new GitHubAPIGitHubRepositoryRepository(DashboardConfig['github_access_token'])}/>)
     // ACT
     const noResults = await screen.findByText(
       new RegExp('No configured widgets', 'i'),
@@ -77,15 +76,15 @@ describe('Dasshboard section', () => {
     expect(noResults).toBeInTheDocument()
   })
   it('show last modified date in human readable format', async () => {
-    const mockedResponse = [...githubApiResponses]
-    mockedResponse[0].repositoryData.updated_at = new Date().toISOString()
-    mockRepository.mockImplementationOnce(() => {
+  
+    GitHubAPIGitHubRepositoryRepository.mockImplementationOnce(() => {
       return {
         search: () => Promise.resolve(githubApiResponses),
       }
     })
     // ARRANGE
-    render(<Dashboard />)
+    render(<Dashboard repository={new GitHubAPIGitHubRepositoryRepository(DashboardConfig['github_access_token'])}/>)
+
     // ACT
     const modificationDate = await screen.findByText(
       new RegExp('Last update today', 'i'),

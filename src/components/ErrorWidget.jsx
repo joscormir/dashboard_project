@@ -4,7 +4,7 @@ export function ErrorWidget() {
   return (
     <>
       <section className={styles.empty}>
-        <span>No configured widgets</span>
+        <h1>No configured widgets</h1>
       </section>
     </>
   )
