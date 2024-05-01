@@ -6,12 +6,14 @@ export function PullRequests({ repository, repositoryId }) {
     repository,
     repositoryId,
   )
-  if (isLoading) {
+  if (pullRequests.length ===0 && isLoading) {
     return <PullRequestsSkeleton />
   }
   return (
+    
     <>
       <h3>Pull Requests</h3>
+      {!isLoading && pullRequests.length !==0 ? (
       <table className={styles.detail__table}>
         <thead>
           <tr>
@@ -21,8 +23,8 @@ export function PullRequests({ repository, repositoryId }) {
           </tr>
         </thead>
         <tbody>
-          {!isLoading &&
-            pullRequests.map((pullRequest) => {
+          
+            {pullRequests.map((pullRequest) => {
               return (
                 <tr key={pullRequest.id}>
                   <td>{pullRequest.title}</td>
@@ -33,10 +35,10 @@ export function PullRequests({ repository, repositoryId }) {
                   </td>
                   <td>{pullRequest.state}</td>
                 </tr>
-              )
-            })}
+              )}
+            )}
         </tbody>
-      </table>
+      </table>):(<h4>No pull requests</h4>)}
     </>
   )
 }

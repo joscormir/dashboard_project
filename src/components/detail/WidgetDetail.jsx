@@ -24,7 +24,6 @@ export function WidgetDetail({ repository }) {
   if (!repositoryData) {
     return <WidgetDetailSkeleton />
   }
-  // TODO Define this customHook to check if it is inView
 
   return (
     <>
@@ -69,36 +68,41 @@ export function WidgetDetail({ repository }) {
         </table>
 
         <h3>Workflow runs status</h3>
-        <table className={styles.detail__table}>
-          <thead>
-            <tr>
-              <th>Name</th>
-              <th>Title</th>
-              <th>Date</th>
-              <th>Status</th>
-              <th>Conclusion</th>
-            </tr>
-          </thead>
-          <tbody>
-            {repositoryData.ciStatus.workflow_runs.map((run) => {
-              return (
-                <tr key={run.id}>
-                  <td>{run.name}</td>
-                  <td>
-                    <a href={run.html_url} target="_blank" rel="noreferrer">
-                      {run.display_title}
-                    </a>
-                  </td>
-                  <td>
-                    {new Date(run.created_at).toLocaleDateString('es-ES')}
-                  </td>
-                  <td>{run.status}</td>
-                  <td>{run.conclusion}</td>
-                </tr>
-              )
-            })}
-          </tbody>
-        </table>
+        {repositoryData.ciStatus.workflow_runs.length === 0 ? (
+          <h4>No workflow runs</h4>
+        ) : (
+          <table className={styles.detail__table}>
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Title</th>
+                <th>Date</th>
+                <th>Status</th>
+                <th>Conclusion</th>
+              </tr>
+            </thead>
+            <tbody>
+              {repositoryData.ciStatus.workflow_runs.map((run) => {
+                return (
+                  <tr key={run.id}>
+                    <td>{run.name}</td>
+                    <td>
+                      <a href={run.html_url} target="_blank" rel="noreferrer">
+                        {run.display_title}
+                      </a>
+                    </td>
+                    <td>
+                      {new Date(run.created_at).toLocaleDateString('es-ES')}
+                    </td>
+                    <td>{run.status}</td>
+                    <td>{run.conclusion}</td>
+                  </tr>
+                )
+              })}
+            </tbody>
+          </table>
+        )}
+
         <section ref={ref} className={styles['repository-detail']}>
           {inView && (
             <PullRequests repository={repository} repositoryId={repositoryId} />
