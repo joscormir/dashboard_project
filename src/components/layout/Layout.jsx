@@ -1,13 +1,25 @@
-import { Outlet } from 'react-router-dom'
+import { Link, Outlet } from 'react-router-dom'
 import styles from './Layout.module.scss'
+import TopBarProgressByLocation from './TopBarProgressByLocation'
+import TopBarProgress from 'react-topbar-progress-indicator'
 
-export function Layout(){
-return (
+TopBarProgress.config({
+  barColors: {
+    0: '#fff',
+    '1.0': '#1a2233',
+  },
+  shadowBlur: 5,
+})
+export function Layout() {
+  return (
     <>
-    <header className={styles.header__container}>
-        <h1>Github Repo Dashboard</h1>
+      <TopBarProgressByLocation />
+      <header className={styles.header__container}>
+        <Link to={'/'} style={{ textDecoration: 'none' }}>
+          <h1 className={styles.app__brand}>Github Repo Dashboard</h1>
+        </Link>
       </header>
       <Outlet />
-      </>
-)
+    </>
+  )
 }
