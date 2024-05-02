@@ -1,11 +1,11 @@
 import Skeleton, { SkeletonTheme } from 'react-loading-skeleton'
 import 'react-loading-skeleton/dist/skeleton.css'
 
-import PullsRequested from '../assets/icons/git-pull-request.svg'
-import Starred from '../assets/icons/star.svg'
-import Watchers from '../assets/icons/watchers.svg'
-import Forks from '../assets/icons/repo-forked.svg'
-import IssuesOpened from '../assets/icons/issue-opened.svg'
+import PullsRequested from '../../assets/icons/git-pull-request.svg'
+import Starred from '../../assets/icons/star.svg'
+import Watchers from '../../assets/icons/watchers.svg'
+import Forks from '../../assets/icons/repo-forked.svg'
+import IssuesOpened from '../../assets/icons/issue-opened.svg'
 import styles from './Widget.module.scss'
 
 function WidgetSkeleton() {

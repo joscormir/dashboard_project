@@ -1,8 +1,8 @@
 import { useState } from 'react'
 import styles from './AddWidgetForm.module.scss'
-import Add from '../assets/icons/add.svg'
-import { useAddRepositoryWidget } from '../hooks/useAddRepositoryWidget'
-import { LocalStorageRepositoryWidgetRepository } from '../infrastructure/LocalStorageRepositoryWidgetRepository'
+import Add from '../../assets/icons/add.svg'
+import { useAddRepositoryWidget } from '../../hooks/useAddRepositoryWidget'
+import { LocalStorageRepositoryWidgetRepository } from '../../infrastructure/LocalStorageRepositoryWidgetRepository'
 export function AddWidgetForm() {
   const [isFormActive, setIsFormActive] = useState(false)
   const { save } = useAddRepositoryWidget(new LocalStorageRepositoryWidgetRepository())

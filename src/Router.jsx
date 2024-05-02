@@ -1,5 +1,5 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
-import { DashboardFatory } from './components/DashboardFactory'
+import { DashboardFatory } from './components/dashboard/DashboardFactory'
 import { Layout } from './components/layout/Layout'
 import { WidgetDetailFactory } from './components/detail/WidgetDetailFactory'
 

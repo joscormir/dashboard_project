@@ -3,5 +3,4 @@ export class LocalStorageRepositoryWidgetRepository{
     console.log(widget)
     await Promise.resolve()
     }
-
 }

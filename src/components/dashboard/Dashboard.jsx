@@ -1,10 +1,10 @@
 import styles from './Dashboard.module.scss'
-import { Widget } from './Widget'
-import { ErrorWidget } from './ErrorWidget'
-import { useGitHubApiRepositories } from '../hooks/useGitHubApiRepositories'
-import { DashboardConfig } from '../dashboard_project_config'
-import { WidgetsSkeleton } from './WidgetSkeleton'
-import { AddWidgetForm } from './AddWidgetForm'
+import { Widget } from '../widget/Widget'
+import { ErrorWidget } from '../widget/ErrorWidget'
+import { useGitHubApiRepositories } from '../../hooks/useGitHubApiRepositories'
+import { DashboardConfig } from '../../dashboard_project_config'
+import { WidgetsSkeleton } from '../widget/WidgetSkeleton'
+import { AddWidgetForm } from '../widget/AddWidgetForm'
 
 const repositoryUrls = DashboardConfig.widgets.map(
   (widget) => widget.repository_url,
