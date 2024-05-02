@@ -4,6 +4,8 @@ import { ErrorWidget } from './ErrorWidget'
 import { useGitHubApiRepositories } from '../hooks/useGitHubApiRepositories'
 import { DashboardConfig } from '../dashboard_project_config'
 import { WidgetsSkeleton } from './WidgetSkeleton'
+import { AddWidgetForm } from './AddWidgetForm'
+
 const repositoryUrls = DashboardConfig.widgets.map(
   (widget) => widget.repository_url,
 )
@@ -16,14 +18,10 @@ export function Dashboard({ repository }) {
 
   return (
     <>
-      {isLoading && (
-        
+      {isLoading ? (
         <section className={styles.container}>
           <WidgetsSkeleton numberOfWidgets={repositoryUrls.length} />
         </section>
-      )}
-      {!isLoading && repositoryData.length === 0 ? (
-        <ErrorWidget />
       ) : (
         <section className={styles.container}>
           {repositoryData.map((repo) => (
@@ -34,8 +32,10 @@ export function Dashboard({ repository }) {
               ciStatus={repo.ciStatus}
             />
           ))}
+          <AddWidgetForm />
         </section>
       )}
+      {!isLoading && repositoryData.length === 0 && <ErrorWidget />}
     </>
   )
 }
