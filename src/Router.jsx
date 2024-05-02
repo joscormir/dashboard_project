@@ -10,7 +10,7 @@ const router = createBrowserRouter([
     children: [
       {
         path: '/',
-        element: DashboardFatory.create(),
+        element: <DashboardFatory />,
       },
       {
         path: 'repository/:organization/:name',

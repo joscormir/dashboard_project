@@ -1,7 +1,12 @@
 import { Router } from './Router'
+import { WidgetConxtextProvider } from './components/widget/WidgetContextProvider'
 
 function App() {
-  return <Router />
+  return (
+    <WidgetConxtextProvider>
+      <Router />
+    </WidgetConxtextProvider>
+  )
 }
 
 export default App
