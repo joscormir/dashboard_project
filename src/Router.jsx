@@ -13,7 +13,7 @@ const router = createBrowserRouter([
         element: <DashboardFatory />,
       },
       {
-        path: 'repository/:organization/:name',
+        path: 'repository/:owner/:name',
         element:WidgetDetailFactory.create(),
       },
     ],

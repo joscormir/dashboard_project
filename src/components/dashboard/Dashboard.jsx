@@ -20,7 +20,6 @@ export function Dashboard({ repository, repositoryWidgets }) {
     repository,
     repositoryUrls,
   })
-
   return (
     <>
       {isLoading ? (

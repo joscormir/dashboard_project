@@ -17,9 +17,9 @@ export function Widget({ repositoryData, pullRequests, ciStatus }) {
       <header className={styles.widget__header}>
         <h2 className={styles.widget__title}>
           <Link
-            to={`/repository/${repositoryData.organization.login}/${repositoryData.name}`}
+            to={`/repository/${repositoryData.owner.login}/${repositoryData.name}`}
           >
-            {repositoryData.organization.login}/{repositoryData.name}
+            {repositoryData.owner.login}/{repositoryData.name}
           </Link>
         </h2>
         {repositoryData.private ? <Lock /> : <UnLock />}

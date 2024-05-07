@@ -9,9 +9,8 @@ export function AddWidgetForm() {
   const  submitForm = async (ev) => {
     ev.preventDefault()
     const { id, repositoryUrl } = ev.target.elements
-    const formSaveStatus = await save({id :id.value,repositoryUrl: repositoryUrl.value})
+    await save({id :id.value,repositoryUrl: repositoryUrl.value})
     setIsFormActive(true)
-    console.log('save status: ', formSaveStatus)
     //save new repository
   }
   return (

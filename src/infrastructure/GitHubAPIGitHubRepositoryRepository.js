@@ -1,8 +1,8 @@
 export class GitHubAPIGitHubRepositoryRepository {
   #endpoints = [
-    'https://api.github.com/repos/$organization/$name',
-    'https://api.github.com/repos/$organization/$name/pulls',
-    'https://api.github.com/repos/$organization/$name/actions/runs',//?page=1&per_page=10
+    'https://api.github.com/repos/$owner/$name',
+    'https://api.github.com/repos/$owner/$name/pulls',
+    'https://api.github.com/repos/$owner/$name/actions/runs',//?page=1&per_page=10
   ]
 
 
@@ -20,7 +20,7 @@ export class GitHubAPIGitHubRepositoryRepository {
 
   async #searchBy(repositoryId) {
     const RepositoryRequests = this.#endpoints
-      .map((endpoint) =>endpoint.replace('$organization', repositoryId.organization))
+      .map((endpoint) =>endpoint.replace('$owner', repositoryId.owner))
       .map((endpoint) => endpoint.replace('$name', repositoryId.name))
       .map((url) =>
         fetch(url, {
@@ -41,7 +41,7 @@ export class GitHubAPIGitHubRepositoryRepository {
     const splitUrl = url.split('/')
     return {
       name: splitUrl.pop(),
-      organization: splitUrl.pop(),
+      owner: splitUrl.pop(),
     }
   }
 }
