@@ -1,5 +1,5 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
-import { DashboardFatory } from './components/DashboardFactory'
+import { DashboardFatory } from './components/dashboard/DashboardFactory'
 import { Layout } from './components/layout/Layout'
 import { WidgetDetailFactory } from './components/detail/WidgetDetailFactory'
 
@@ -10,10 +10,10 @@ const router = createBrowserRouter([
     children: [
       {
         path: '/',
-        element: DashboardFatory.create(),
+        element: <DashboardFatory />,
       },
       {
-        path: 'repository/:organization/:name',
+        path: 'repository/:owner/:name',
         element:WidgetDetailFactory.create(),
       },
     ],

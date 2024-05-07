@@ -9,10 +9,10 @@ import { PullRequests } from './PullRequests'
 import { useInView } from 'react-intersection-observer'
 
 export function WidgetDetail({ repository }) {
-  const { organization, name } = useParams()
+  const { owner, name } = useParams()
   const repositoryId = useMemo(
-    () => ({ name, organization }),
-    [name, organization],
+    () => ({ name, owner }),
+    [name, owner],
   )
   const { repositoryData } = useGitHubRepository(repository, repositoryId)
 
@@ -35,7 +35,7 @@ export function WidgetDetail({ repository }) {
             rel="noreferrer"
           >
             <h2 className={styles.header__title}>
-              {repositoryData.repositoryData.organization.login}/
+              {repositoryData.repositoryData.owner.login}/
               {repositoryData.repositoryData.name}
             </h2>
           </a>

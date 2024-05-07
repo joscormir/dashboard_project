@@ -1,14 +1,14 @@
 import styles from './Widget.module.scss'
-import Lock from '../assets/icons/lock.svg'
-import UnLock from '../assets/icons/unlock.svg'
-import Check from '../assets/icons/check.svg'
-import Error from '../assets/icons/error.svg'
-import PullsRequested from '../assets/icons/git-pull-request.svg'
-import Starred from '../assets/icons/star.svg'
-import Watchers from '../assets/icons/watchers.svg'
-import Forks from '../assets/icons/repo-forked.svg'
-import IssuesOpened from '../assets/icons/issue-opened.svg'
-import { isoDateFormat } from '../services/isoDateFormat'
+import Lock from '../../assets/icons/lock.svg'
+import UnLock from '../../assets/icons/unlock.svg'
+import Check from '../../assets/icons/check.svg'
+import Error from '../../assets/icons/error.svg'
+import PullsRequested from '../../assets/icons/git-pull-request.svg'
+import Starred from '../../assets/icons/star.svg'
+import Watchers from '../../assets/icons/watchers.svg'
+import Forks from '../../assets/icons/repo-forked.svg'
+import IssuesOpened from '../../assets/icons/issue-opened.svg'
+import { isoDateFormat } from '../../services/isoDateFormat'
 import { Link } from 'react-router-dom'
 
 export function Widget({ repositoryData, pullRequests, ciStatus }) {
@@ -17,9 +17,9 @@ export function Widget({ repositoryData, pullRequests, ciStatus }) {
       <header className={styles.widget__header}>
         <h2 className={styles.widget__title}>
           <Link
-            to={`/repository/${repositoryData.organization.login}/${repositoryData.name}`}
+            to={`/repository/${repositoryData.owner.login}/${repositoryData.name}`}
           >
-            {repositoryData.organization.login}/{repositoryData.name}
+            {repositoryData.owner.login}/{repositoryData.name}
           </Link>
         </h2>
         {repositoryData.private ? <Lock /> : <UnLock />}
