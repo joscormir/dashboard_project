@@ -15,8 +15,13 @@ export function Layout() {
     <>
       <TopBarProgressByLocation />
       <header className={styles.header__container}>
-        <Link to={'/'} style={{ textDecoration: 'none' }}>
-          <h1 className={styles.app__brand}>Github Repo Dashboard</h1>
+        <div className={styles.brand__container}>
+          <Link to={'/'} style={{ textDecoration: 'none' }}>
+            <h1 className={styles.app__brand}>Github Repo Dashboard</h1>
+          </Link>
+        </div>
+        <Link to="/config" style={{ textDecoration: 'none' }}>
+          <span>⚙️</span>
         </Link>
       </header>
       <Outlet />
