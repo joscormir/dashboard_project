@@ -24,7 +24,7 @@ export function WidgetDetail({ repository }) {
   if (!repositoryData) {
     return <WidgetDetailSkeleton />
   }
-
+  console.log(repositoryData)
   return (
     <>
       <section className={styles['repository-detail']}>
